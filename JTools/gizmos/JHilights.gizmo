@@ -1,0 +1,85 @@
+#! /cg/nuke/Nuke11.3v1/libnuke-11.3.1.so -nx
+version 11.3 v1
+Gizmo {
+ inputs 2
+ tile_color 0x3cff00ff
+ addUserKnob {20 User l Hilights}
+ addUserKnob {41 saturation T Saturation4.saturation}
+ addUserKnob {41 white l gain T Grade1.white}
+ addUserKnob {41 gamma T Grade1.gamma}
+ addUserKnob {41 black_clamp l "black clamp" T Grade1.black_clamp}
+ addUserKnob {41 white_clamp l "white clamp" -STARTLINE T Grade1.white_clamp}
+}
+ Input {
+  inputs 0
+  name src
+  xpos 526
+  ypos -653
+ }
+set N91b1220 [stack 0]
+push $N91b1220
+ Input {
+  inputs 0
+  name clean_plate
+  xpos 717
+  ypos -660
+  number 1
+ }
+ Dot {
+  name Dot1
+  xpos 751
+  ypos -552
+ }
+set N91ba680 [stack 0]
+ Merge2 {
+  inputs 2
+  operation max
+  name Merge1
+  xpos 527
+  ypos -555
+ }
+push $N91ba680
+ Dot {
+  name Dot2
+  xpos 751
+  ypos -466
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge2
+  xpos 527
+  ypos -469
+ }
+ Saturation {
+  saturation 0
+  name Saturation4
+  xpos 527
+  ypos -405
+ }
+ Grade {
+  white_clamp true
+  name Grade1
+  selected true
+  xpos 527
+  ypos -381
+ }
+ Shuffle {
+  alpha black
+  name Shuffle1
+  xpos 527
+  ypos -283
+ }
+ Output {
+  name Output1
+  xpos 527
+  ypos -238
+ }
+ Viewer {
+  inputs 2
+  frame_range 1-255
+  name Viewer1
+  xpos 1073
+  ypos -435
+ }
+end_group

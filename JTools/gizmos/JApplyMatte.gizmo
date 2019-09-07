@@ -1,0 +1,59 @@
+#! /cg/nuke/Nuke11.3v1/libnuke-11.3.1.so -nx
+version 11.3 v1
+Gizmo {
+ inputs 2
+ tile_color 0x3cff00ff
+ addUserKnob {20 User l "Copy + premult"}
+ addUserKnob {6 boolean l "Crop alpha" +STARTLINE}
+ boolean true
+}
+ Input {
+  inputs 0
+  name alpha
+  xpos 292
+  ypos -534
+  number 1
+ }
+ Crop {
+  box {0 0 {width} {height}}
+  crop false
+  name Crop7
+  xpos 388
+  ypos -534
+  disable {{"parent.boolean == 1 ? 0 : 1"}}
+ }
+ Input {
+  inputs 0
+  name src
+  xpos 509
+  ypos -580
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy3
+  selected true
+  xpos 509
+  ypos -540
+  disable {{"\[string first \".a\" \[channels \[input this 1]]]>-1 ? 0: 1"}}
+ }
+set N916c420 [stack 0]
+ Premult {
+  name Premult5
+  xpos 509
+  ypos -504
+ }
+ Output {
+  name Output1
+  xpos 509
+  ypos -404
+ }
+push $N916c420
+ Viewer {
+  frame_range 1-255
+  name Viewer1
+  xpos 635
+  ypos -494
+ }
+end_group

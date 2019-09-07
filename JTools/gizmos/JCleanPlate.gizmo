@@ -1,0 +1,335 @@
+#! /cg/nuke/Nuke11.3v1/libnuke-11.3.1.so -nx
+version 11.3 v1
+Gizmo {
+ inputs 2
+ tile_color 0x3cff00ff
+ addUserKnob {20 User l "Clean Plate"}
+ addUserKnob {6 boolean_1 l "Keying view" +STARTLINE}
+ boolean_1 true
+ addUserKnob {41 size_1 l Erode T FilterErode12.size}
+ addUserKnob {41 filter -STARTLINE T FilterErode12.filter}
+ addUserKnob {41 size l Patch T Blur14.size}
+ addUserKnob {7 mult l Multiply -STARTLINE}
+ mult 3
+ addUserKnob {26 ""}
+ addUserKnob {6 boolean l "Patch under original" +STARTLINE}
+ boolean true
+ addUserKnob {41 size_2 l "Edge Blur" T EdgeBlur1.size}
+ addUserKnob {41 size_3 l Details T Blur1.size}
+ addUserKnob {20 tab l Advanced}
+ addUserKnob {26 text l "Input Alpha"}
+ addUserKnob {41 minimum T Clamp14.minimum}
+ addUserKnob {41 maximum T Clamp14.maximum}
+}
+ Input {
+  inputs 0
+  name src
+  xpos 509
+  ypos -1334
+ }
+ Dot {
+  name Dot9
+  xpos 543
+  ypos -1195
+ }
+set Nd0f90680 [stack 0]
+ Dot {
+  name Dot8
+  xpos 1069
+  ypos -1195
+ }
+ Dot {
+  name Dot7
+  xpos 1069
+  ypos 300
+ }
+ Input {
+  inputs 0
+  name input_alpha
+  xpos 18
+  ypos -1328
+  number 1
+ }
+ Clamp {
+  channels alpha
+  maximum {{minimum}}
+  MinClampTo_enable true
+  MaxClampTo_enable true
+  name Clamp14
+  xpos 18
+  ypos -1304
+ }
+ Crop {
+  box {0 0 {width} {height}}
+  crop false
+  name Crop3
+  selected true
+  xpos 18
+  ypos -1266
+ }
+ FilterErode {
+  channels alpha
+  size -1
+  name FilterErode12
+  xpos 18
+  ypos -1194
+ }
+ Invert {
+  channels alpha
+  name Invert1
+  xpos 18
+  ypos -1142
+ }
+ Clamp {
+  channels alpha
+  name Clamp12
+  xpos 18
+  ypos -1012
+ }
+set Nd0c93e70 [stack 0]
+push $Nd0f90680
+ Shuffle {
+  alpha black
+  name Shuffle1
+  xpos 509
+  ypos -1079
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy3
+  xpos 509
+  ypos -1012
+  disable {{"\[string first \".a\" \[channels \[input this 1]]]>-1 ? 0: 1"}}
+ }
+ Premult {
+  name Premult5
+  xpos 509
+  ypos -833
+ }
+set Nd0a9cb00 [stack 0]
+ Dot {
+  name Dot6
+  xpos 899
+  ypos -830
+ }
+ Dot {
+  name Dot1
+  xpos 899
+  ypos 192
+ }
+push $Nd0a9cb00
+ Crop {
+  box {0 0 {width} {height}}
+  name Crop1
+  xpos 509
+  ypos -710
+ }
+ Dot {
+  name Dot2
+  xpos 543
+  ypos -662
+ }
+set Nd08962a0 [stack 0]
+ Dot {
+  name Dot4
+  xpos 237
+  ypos -662
+ }
+ Blur {
+  channels rgba
+  size 4
+  name Blur14
+  xpos 203
+  ypos -606
+ }
+ Unpremult {
+  name Unpremult3
+  xpos 203
+  ypos -582
+ }
+ Clamp {
+  channels alpha
+  maximum {{minimum}}
+  MinClampTo_enable true
+  MaxClampTo_enable true
+  name Clamp15
+  xpos 203
+  ypos -558
+ }
+ Blur {
+  channels rgba
+  size {{parent.Blur14.size*parent.mult*1}}
+  name Blur15
+  xpos 203
+  ypos -522
+ }
+ Unpremult {
+  name Unpremult4
+  xpos 203
+  ypos -498
+ }
+ Clamp {
+  channels alpha
+  maximum {{minimum}}
+  MinClampTo_enable true
+  MaxClampTo_enable true
+  name Clamp16
+  xpos 203
+  ypos -474
+ }
+ Blur {
+  channels rgba
+  size {{parent.Blur14.size*parent.mult*2}}
+  name Blur16
+  xpos 203
+  ypos -438
+ }
+ Unpremult {
+  name Unpremult5
+  xpos 203
+  ypos -414
+ }
+ Clamp {
+  channels alpha
+  maximum {{minimum}}
+  MinClampTo_enable true
+  MaxClampTo_enable true
+  name Clamp17
+  xpos 203
+  ypos -390
+ }
+ Blur {
+  channels rgba
+  size {{parent.Blur14.size*parent.mult*3}}
+  name Blur17
+  xpos 203
+  ypos -354
+ }
+ Unpremult {
+  name Unpremult6
+  xpos 203
+  ypos -330
+ }
+ Clamp {
+  channels alpha
+  maximum {{minimum}}
+  MinClampTo_enable true
+  MaxClampTo_enable true
+  name Clamp18
+  xpos 203
+  ypos -306
+ }
+ Blur {
+  channels rgba
+  size {{parent.Blur14.size*parent.mult*4}}
+  name Blur18
+  xpos 203
+  ypos -270
+ }
+ Unpremult {
+  name Unpremult7
+  xpos 203
+  ypos -246
+ }
+ Clamp {
+  channels alpha
+  maximum {{minimum}}
+  MinClampTo_enable true
+  MaxClampTo_enable true
+  name Clamp19
+  xpos 203
+  ypos -222
+ }
+ Blur {
+  channels rgba
+  size {{parent.Blur14.size*parent.mult*5}}
+  name Blur19
+  xpos 203
+  ypos -186
+ }
+ Unpremult {
+  name Unpremult8
+  xpos 203
+  ypos -162
+ }
+ Clamp {
+  channels alpha
+  maximum {{minimum}}
+  MinClampTo_enable true
+  MaxClampTo_enable true
+  name Clamp20
+  xpos 203
+  ypos -138
+ }
+ Dot {
+  name Dot5
+  xpos 237
+  ypos -66
+ }
+set Ncfa99290 [stack 0]
+push $Nd08962a0
+ EdgeBlur {
+  channels rgba
+  size 5
+  name EdgeBlur1
+  xpos 509
+  ypos -428
+ }
+ Merge2 {
+  inputs 2
+  operation under
+  name Merge1
+  xpos 514
+  ypos -69
+ }
+push $Ncfa99290
+ Dot {
+  name Dot3
+  xpos 237
+  ypos 108
+ }
+ Switch {
+  inputs 2
+  which {{parent.boolean}}
+  name Switch1
+  xpos 514
+  ypos 105
+ }
+ Blur {
+  channels rgba
+  size 3
+  name Blur1
+  xpos 514
+  ypos 129
+ }
+ Switch {
+  inputs 2
+  which {{parent.boolean_1}}
+  name Switch2
+  xpos 514
+  ypos 189
+ }
+ Crop {
+  box {0 0 {width} {height}}
+  name Crop2
+  xpos 514
+  ypos 378
+ }
+ Output {
+  name Output1
+  xpos 514
+  ypos 514
+ }
+push $Nd0a9cb00
+push 0
+push $Nd0c93e70
+ Viewer {
+  inputs 3
+  frame_range 1-300
+  name Viewer1
+  xpos 619
+  ypos -422
+ }
+end_group

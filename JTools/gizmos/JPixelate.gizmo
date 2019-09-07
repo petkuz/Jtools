@@ -1,0 +1,144 @@
+#! /cg/nuke/Nuke11.3v1/libnuke-11.3.1.so -nx
+version 11.3 v1
+Gizmo {
+ inputs 2
+ tile_color 0xb8c500ff
+ addUserKnob {20 User}
+ addUserKnob {7 double l Scale}
+ double 1
+}
+ Input {
+  inputs 0
+  name Input
+  xpos 257
+  ypos -203
+ }
+ Dot {
+  name Dot6
+  xpos 291
+  ypos -89
+ }
+set Nc08c5f0 [stack 0]
+ Dot {
+  name Dot5
+  xpos 169
+  ypos -89
+ }
+set Ncae114f0 [stack 0]
+ NoOp {
+  name Get_format
+  xpos 135
+  ypos 89
+  addUserKnob {20 User}
+  addUserKnob {3 integer l width}
+  integer {{width}}
+  addUserKnob {3 integer_1 l height -STARTLINE}
+  integer_1 {{height}}
+ }
+push $Ncae114f0
+ Dot {
+  name Dot4
+  xpos 48
+  ypos -89
+ }
+ Expression {
+  expr3 a?a:0
+  name Expression1
+  xpos 14
+  ypos 27
+ }
+ Dot {
+  name Dot3
+  xpos 48
+  ypos 229
+ }
+push $Nc08c5f0
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos 257
+  ypos -56
+ }
+ Dot {
+  name Dot7
+  xpos 291
+  ypos -21
+ }
+set N3310d750 [stack 0]
+ Reformat {
+  type scale
+  scale {{"(parent.double>0?parent.double:1/width) < 1 ? (parent.double>0?parent.double:1/width) : 1"}}
+  name Reformat1
+  xpos 256
+  ypos 32
+ }
+ Grade {
+  name Grade1
+  xpos 256
+  ypos 62
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.Get_format.integer}}
+  box_height {{parent.Get_format.integer_1}}
+  box_fixed true
+  resize distort
+  filter Impulse
+  name Reformat3
+  xpos 256
+  ypos 91
+ }
+ Input {
+  inputs 0
+  name mask
+  label "\n"
+  xpos 445
+  ypos -208
+  number 1
+ }
+ Invert {
+  channels alpha
+  name Invert1
+  xpos 445
+  ypos 30
+ }
+ Dot {
+  name Dot1
+  xpos 479
+  ypos 115
+ }
+push $N3310d750
+ Dot {
+  name Dot2
+  xpos 393
+  ypos -21
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge1
+  xpos 359
+  ypos 111
+ }
+ Merge2 {
+  inputs 2
+  operation under
+  name Merge2
+  xpos 256
+  ypos 180
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  selected true
+  xpos 256
+  ypos 219
+ }
+ Output {
+  name Output1
+  xpos 256
+  ypos 325
+ }
+end_group

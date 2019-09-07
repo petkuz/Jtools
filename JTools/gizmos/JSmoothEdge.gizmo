@@ -1,0 +1,58 @@
+#! /cg/nuke/Nuke11.3v1/libnuke-11.3.1.so -nx
+version 11.3 v1
+Gizmo {
+ tile_color 0x3cff00ff
+ label (alpha)
+ addUserKnob {20 User l Smooth}
+ addUserKnob {41 size l Amount T Blur12.size}
+ addUserKnob {41 filter -STARTLINE T Blur12.filter}
+ addUserKnob {41 minimum l Padding T Clamp12.minimum}
+ addUserKnob {26 text l "Post filters"}
+ addUserKnob {41 size_1 l Erode T FilterErode1.size}
+ addUserKnob {41 filter_1 l filter -STARTLINE T FilterErode1.filter}
+ addUserKnob {41 size_2 l "Edge blur" T EdgeBlur1.size}
+ addUserKnob {41 filter_2 l filter -STARTLINE T EdgeBlur1.filter}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 526
+  ypos -580
+ }
+ Blur {
+  channels alpha
+  filter box
+  name Blur12
+  xpos 526
+  ypos -540
+ }
+ Clamp {
+  channels alpha
+  minimum 0.5
+  maximum {{minimum}}
+  MinClampTo_enable true
+  MaxClampTo_enable true
+  name Clamp12
+  xpos 526
+  ypos -504
+ }
+ FilterErode {
+  size 0
+  name FilterErode1
+  xpos 526
+  ypos -456
+ }
+ EdgeBlur {
+  channels alpha
+  size 0
+  name EdgeBlur1
+  selected true
+  xpos 526
+  ypos -420
+ }
+ Output {
+  name Output1
+  xpos 526
+  ypos -350
+ }
+end_group

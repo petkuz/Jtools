@@ -1,0 +1,109 @@
+#! /cg/nuke/Nuke11.3v1/libnuke-11.3.1.so -nx
+version 11.3 v1
+Gizmo {
+ inputs 2
+ tile_color 0x3cff00ff
+ addUserKnob {20 User l Premult}
+ addUserKnob {41 gamma_1 l "Alpha gamma" T Grade1.gamma}
+ addUserKnob {41 which l "Premult amount" T Dissolve2.which}
+ addUserKnob {41 gamma l "Premult gamma" T Grade2.gamma}
+}
+ BackdropNode {
+  inputs 0
+  name premult
+  tile_color 0x7171c600
+  note_font_size 42
+  xpos -143
+  ypos -555
+  bdwidth 192
+  bdheight 158
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos 243
+  ypos -683
+  number 1
+ }
+ Dot {
+  name Dot2
+  xpos 277
+  ypos -609
+ }
+set Na6eeec0 [stack 0]
+ Dot {
+  name Dot1
+  xpos 277
+  ypos -423
+ }
+push $Na6eeec0
+ Input {
+  inputs 0
+  name Input
+  xpos 89
+  ypos -676
+ }
+ Grade {
+  inputs 1+1
+  channels alpha
+  white_clamp true
+  name Grade1
+  xpos 89
+  ypos -619
+ }
+ Dot {
+  name Dot9
+  xpos 123
+  ypos -535
+ }
+set N9da7f00 [stack 0]
+ Dot {
+  name Dot10
+  xpos -7
+  ypos -535
+ }
+set Na54bbd0 [stack 0]
+ Dot {
+  name Dot11
+  xpos -99
+  ypos -535
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle2
+  xpos -133
+  ypos -475
+ }
+ Grade {
+  white_clamp true
+  name Grade2
+  xpos -133
+  ypos -427
+ }
+push $Na54bbd0
+ Merge2 {
+  inputs 2
+  operation multiply
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Multiply1
+  xpos -41
+  ypos -427
+ }
+push $N9da7f00
+ Dissolve {
+  inputs 2+1
+  which 1
+  name Dissolve2
+  xpos 89
+  ypos -433
+ }
+ Output {
+  name Output1
+  xpos 89
+  ypos -285
+ }
+end_group

@@ -1,0 +1,88 @@
+#! /cg/nuke/Nuke11.3v1/libnuke-11.3.1.so -nx
+version 11.3 v1
+Gizmo {
+ tile_color 0x3cff00ff
+ label (alpha)
+ addUserKnob {20 User l Dilate}
+ addUserKnob {6 boolean l "Clamp input alpha" +STARTLINE}
+ boolean true
+ addUserKnob {26 ""}
+ addUserKnob {41 size T FilterErode12.size}
+ addUserKnob {6 boolean_3 l Enable -STARTLINE}
+ boolean_3 true
+ addUserKnob {41 filter T FilterErode12.filter}
+ addUserKnob {20 tab l Advanced}
+ addUserKnob {26 text l "Clamp input alpha parametres"}
+ addUserKnob {41 minimum T Clamp12.minimum}
+ addUserKnob {41 maximum T Clamp12.maximum}
+}
+ Input {
+  inputs 0
+  name alpha
+  xpos 509
+  ypos -684
+ }
+ Clamp {
+  channels alpha
+  maximum 0
+  MinClampTo_enable true
+  MaxClampTo_enable true
+  name Clamp12
+  xpos 509
+  ypos -615
+  disable {{"parent.boolean ==1 ? 0 : 1"}}
+ }
+ Dot {
+  name Dot2
+  xpos 543
+  ypos -539
+ }
+set N95364f0 [stack 0]
+ Dot {
+  name Dot4
+  xpos 391
+  ypos -539
+ }
+ FilterErode {
+  size 0
+  name FilterErode12
+  xpos 357
+  ypos -491
+ }
+ set C953fbd0 [stack 0]
+ Invert {
+  channels alpha
+  name Invert1
+  xpos 357
+  ypos -455
+ }
+ set C954b9b0 [stack 0]
+clone $C953fbd0 {
+  xpos 357
+  ypos -419
+  selected false
+ }
+clone $C954b9b0 {
+  xpos 357
+  ypos -383
+  selected false
+ }
+ Dot {
+  name Dot5
+  xpos 391
+  ypos -321
+ }
+push $N95364f0
+ Switch {
+  inputs 2
+  which {{parent.boolean_3}}
+  name Switch3
+  xpos 509
+  ypos -324
+ }
+ Output {
+  name Output1
+  xpos 509
+  ypos -238
+ }
+end_group

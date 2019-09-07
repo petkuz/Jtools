@@ -1,0 +1,127 @@
+#! /cg/nuke/Nuke11.3v1/libnuke-11.3.1.so -nx
+version 11.3 v1
+Gizmo {
+inputs 3
+tile_color 0x3cff00ff
+addUserKnob {20 User l Settings}
+addUserKnob {18 color_rgb l "Target color"}
+color_rgb {0.06 0.1 0.06}
+addUserKnob {6 color_rgb_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 color_rgb_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 color_rgb_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 color_rgb_panelDropped_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 color_rgb_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {6 color_rgb_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {41 saturation l "Influence chroma" T Saturation1.saturation}
+}
+Input {
+inputs 0
+name mask
+xpos 1086
+ypos 106
+number 1
+}
+Dot {
+name Dot59
+xpos 1120
+ypos 511
+}
+Expression {
+inputs 0
+expr0 parent.color_rgb.r
+expr1 parent.color_rgb.g
+expr2 parent.color_rgb.b
+name Expression1
+xpos 1242
+ypos 237
+}
+Dot {
+name Dot60
+xpos 1276
+ypos 331
+}
+set Nc593b50 [stack 0]
+Shuffle {
+alpha black
+name Shuffle2
+xpos 1242
+ypos 439
+}
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 rgba.alpha
+name Copy4
+xpos 1242
+ypos 502
+}
+Premult {
+name Premult7
+xpos 1242
+ypos 552
+}
+Dot {
+name Dot61
+xpos 1276
+ypos 599
+}
+push $Nc593b50
+Input {
+inputs 0
+name clean_plate
+xpos 1409
+ypos 106
+number 2
+}
+Merge2 {
+inputs 2
+operation divide
+name Merge60
+xpos 1409
+ypos 328
+}
+Saturation {
+saturation 0
+name Saturation1
+selected true
+xpos 1409
+ypos 373
+}
+Dot {
+name Dot69
+xpos 1443
+ypos 410
+}
+Input {
+inputs 0
+name src
+xpos 1667
+ypos 108
+}
+Crop {
+box {0 0 {width} {height}}
+crop false
+name Crop7
+xpos 1667
+ypos 132
+}
+Merge2 {
+inputs 2
+operation multiply
+name Merge65
+xpos 1667
+ypos 407
+}
+Merge2 {
+inputs 2
+output {rgba.red rgba.green rgba.blue -rgba.alpha}
+name Merge29
+xpos 1667
+ypos 596
+}
+Output {
+name Output1
+xpos 1667
+ypos 739
+}
+end_group
